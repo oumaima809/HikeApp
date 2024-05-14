@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>contribuer</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">
+            <h1>HIKE MOUHTADi</h1>
+            <p>A HIKE MOUHTADI SITE</p>
+        </div>
+        <ul>
+            <li><a href="/">Randonner</a></li>
+            <li><a href="/contribuer">Contribuer</a></li>
+            <li><a href="/connexion">connexion</a></li>
+            
+        </ul>
+    </nav>
+   
+       
+     <div class="create-hike content">
+        <form id="coonnectForm" action="/connecter"  method="POST">
+            <label for="nom">Saisir votre identifiant:</label>
+            <input type="text" id="title" name="identifiant" required>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required>
+            <label for="password">nouveau utilisateur :</label>
+            <input type="checkbox" id="nouveau" name="nouveau" >
+
+            <button type="submit">Se connecter</button>
+        </form>
+    </div>
+  
+    <script>
+         const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+        
+        e.preventDefault()
+
+        const title = document.getElementById('title').value;
+        const password = document.getElementById('password').value; 
+        const nouveau = document.getElementById('nouveau').checked;
+        console.log("hello")
+        console.log(title);
+        
+
+        const data =
+        {
+            identifiant :title,
+            password : password,
+            nouveau : nouveau
+
+
+        }
+        
+        console.log(data)
+       
+        fetch('http://localhost:3000/connecter', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data) // Convert object to JSON string
+})
+.then(res => {
+    if (res.redirected) {
+        // Redirect to the index page
+        window.location.href = res.url;
+    } else {
+        // Handle other responses here
+        return res.json();
+    }
+})
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
+    })
+    </script>
+    
+   
+    
+    
+    <footer>
+        Copyright &copy; Blog Mouhtadi 2024
+    </footer>
+  
+</body>
+
+</html>

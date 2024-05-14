@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-title">
+            <h1>HIKE MOUHTADi</h1>
+            <p>A HIKE MOUHTADI SITE</p>
+        </div>
+        <ul>
+            <li><a href="/">Randonner</a></li>
+            <li><a href="/contribuer/">Contribuer</a></li>
+            <li><a href="/connexion/">connexion</a></li>
+        </ul>
+    </nav>
+   
+      <div class="details content">
+            <div id="img"></div>
+            <div class="content content-details" id="content"> 
+            <h2 id="title"></h2>
+            <div class="icon"><i class="fa-solid fa-location-dot" ></i><h5 id="adress"></h5></div>
+            <div id="score"></div>
+            
+            <p id="description"></p>  
+            </div>   
+            
+
+      </div>
+  
+    
+      <script>
+        
+      document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams);
+    const id = urlParams.get('id');
+    console.log("this is id")
+    
+    
+   
+
+    // Fetch data for the specific ID from the server
+    fetch(`/api/randonnees/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            // Update the DOM with the retrieved data
+            document.getElementById('title').textContent = data.nom;
+            document.getElementById('adress').textContent = data.depart;
+            document.getElementById('description').textContent = data.description_;
+
+            var score = data.score;
+            var starsHTML = '';
+
+            for (var i = 0; i < score; i++) {
+                starsHTML += '<i class="fa-solid fa-star"></i>';
+            }
+            var photo = data.photo;
+            console.log(photo);
+            var imgHtml = `<img src="${photo}" alt="this is img" class="hike-img" >`
+            document.getElementById('img').innerHTML =  imgHtml;
+
+            document.getElementById('score').innerHTML = starsHTML;
+
+            // Update other elements as needed
+        })
+        
+});
+
+    </script>
+
+     
+    <footer>
+        Copyright &copy; Blog Mouhtadi 2024
+    </footer>
+
+
+    
+</body>
+</html>
