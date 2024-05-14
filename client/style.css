@@ -150,6 +150,6 @@ body{
     cursor: pointer;
   }
 
-
-
-
+#erreur {
+   color: crimson;
+}

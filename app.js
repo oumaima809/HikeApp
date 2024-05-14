@@ -130,16 +130,51 @@ app.post('/connecter', (req, res) => {
     const identifiant = formData.identifiant;
     const password_ = formData.password;
     const nouveau = formData.nouveau ;
-    const values = [identifiant,password_,nouveau]; 
-    console.log(values)
-    db.run('INSERT INTO utilisateur (identifiant,password_,nouveau) VALUES (?,?,?)', [identifiant,password_,nouveau], (err) => {
+
+    db.get(`SELECT COUNT(*) AS num FROM utilisateur WHERE identifiant = ?`, [identifiant], (err,row) => {
         if (err) {
             
-            res.writeHead(500);
-            return res.end('Error adding data to database');
+            console.log(err)
+           
         }
-        console.log("Data added to database:");
+        console.log(`Number of rows for identifiant ${identifiant}: ${row.num}`);
+        const result = row.num
+        if (nouveau && result === 1) {
+            console.log("utilisateur existe déjà");
+            const erreur = [{
+                connected : '0',
+                msg:'utilisateur existe déjà'
+            }]
+            res.json(erreur)
+        } else if (!nouveau && result === 0) {
+            console.log("utilisateur n'existe pas");
+            const erreur = [{
+                 connected : '0' ,               
+                msg:"utilisateur n'existe pas"
+            }]
+            res.json(erreur)
+        } else if (nouveau && result === 0) {
+            db.run('INSERT INTO utilisateur (identifiant, password_, nouveau) VALUES (?, ?, ?)', [identifiant, password_, nouveau], (err) => {
+                if (err) {
+                    console.error(err);
+                    res.writeHead(500);
+                    return res.end('Error adding data to database');
+                }
+                console.log("Data added to database");
+                const erreur = [{
+                connected : '1',
+                    msg:'Bienvenue dans Mouhatdi Hike'
+                }]
+                res.json(erreur)
+            });
+        }
+            
+
     });
+    
+   
+  
+    
 });
 
 

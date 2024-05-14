@@ -20,7 +20,7 @@
         <ul>
             <li><a href="/">Randonner</a></li>
             <li><a href="/contribuer/">Contribuer</a></li>
-            <li><a href="/connexion/">Connexion</a></li>
+            <li id="navbar"></li>
 
         </ul>
     </nav>
@@ -33,7 +33,11 @@
    
     <script >
         
-
+// Create the "Connexion" link initially
+const link = document.createElement('a');
+        link.href = "/connexion";
+        link.textContent = "Connexion";
+        document.getElementById("navbar").appendChild(link);
 document.addEventListener('DOMContentLoaded', () => {
     // Fetch data from server
     fetch('/api/randonnees')
@@ -73,6 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
             console.error('Error fetching data:', error);
         });
+
+    
 });
     </script>
 </body>

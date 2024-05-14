@@ -18,7 +18,7 @@
         <ul>
             <li><a href="/">Randonner</a></li>
             <li><a href="/contribuer">Contribuer</a></li>
-            <li><a href="/connexion">connexion</a></li>
+            <li id="navbar"></li>
             
         </ul>
     </nav>
@@ -34,10 +34,18 @@
             <input type="checkbox" id="nouveau" name="nouveau" >
 
             <button type="submit">Se connecter</button>
+            <h5 id="erreur"></h5>
         </form>
+        
     </div>
   
     <script>
+         // Create the "Connexion" link initially
+         const link = document.createElement('a');
+        link.href = "/connexion";
+        link.textContent = "Connexion";
+        document.getElementById("navbar").appendChild(link);
+
          const form = document.querySelector('form');
     form.addEventListener('submit', (e) => {
         
@@ -77,8 +85,24 @@
         return res.json();
     }
 })
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
+.then(data => {
+    console.log(data)
+    const erreur = data[0].msg
+    console.log(erreur)
+    document.getElementById("erreur").textContent=erreur;
+    if(data[0].connected==='1')
+    {
+        const navbar = document.getElementById("navbar");
+        navbar.innerHTML = ''; 
+        const newLink = document.createElement('a');
+        newLink.textContent = title;
+        navbar.appendChild(newLink);
+            
+    }
+    
+    
+})
+
     })
     </script>
     

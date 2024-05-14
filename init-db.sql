@@ -13,8 +13,7 @@ CREATE TABLE randonnee (
 
 );
 CREATE TABLE utilisateur (
-  idUser INTEGER PRIMARY KEY AUTOINCREMENT,
-  identifiant INTEGER NOT NULL,
+  identifiant INTEGER PRIMARY KEY,
   password_ TEXT NOT NULL ,
   nouveau BOOLEAN 
 
