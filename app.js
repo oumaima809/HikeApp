@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const path = require('path');
+
 const sqlite3 = require('sqlite3').verbose();
 
 const db = new sqlite3.Database('./database.sqlite', (err) => {
@@ -12,15 +12,16 @@ const db = new sqlite3.Database('./database.sqlite', (err) => {
 
 
 
+let con = 0;
+let identif =0
+
 const app = express();
-app.use(express.static(path.join(__dirname, 'client')));
+
+app.use(express.static(__dirname + '/client'));
 app.use(express.json());
 
-let con = 0;
-let identif = 0
 
 
-//index route
 app.get('/',(req,res)=>{
    res.sendFile('/index.html',{root : __dirname+ '/client'});
 });
@@ -41,14 +42,12 @@ app.get('/api/randonnees',(req,res)=>{
     
 })
 
-//Randoonee route
-
 app.get('/randonnee/',(req,res)=>{
+   
    
     res.sendFile('/randonnee.html',{root : __dirname+ '/client'});
     
 })
-
 app.get('/api/randonnees/:id',(req,res)=>{
     
     const id = req.params.id;
@@ -65,16 +64,18 @@ app.get('/api/randonnees/:id',(req,res)=>{
         });
     });
  });
-
- //contribuer route
  app.get('/contribuer/',(req,res)=>{
    
    
     res.sendFile('/contribuer.html',{root : __dirname+ '/client'});
     
 })
-
-
+app.get('/api/contribuer-data', (req, res) => {
+    res.json({ 
+      connected: con,
+      identifiant: identif,
+    });
+})
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, __dirname + '/client/images');
@@ -88,16 +89,18 @@ const upload = multer({ storage: storage })
 
 app.post("/contribuer", upload.array("files"), (req, res) => {
 
- 
-   const data= req.body;
-   const nom=data.nom;
+    console.log(req.body); 
+    console.log(req.files); 
+    const data= req.body;
+    const nom=data.nom;
    const depart = data.depart;
    const description = data.description;
    const score = data.score;
    const photo = '/images/'+req.files[0].originalname;
-
-    const values = [nom, depart, description,score,photo]; 
-    // Insert data into the database
+   console.log(nom)
+     const values = [nom, depart, description,score,photo]; 
+    console.log(values)
+   
     db.run('INSERT INTO randonnee (nom, depart, description_,score,photo) VALUES (?,?,?,?,?)', values, (err) => {
         if (err) {
             
@@ -120,6 +123,7 @@ app.get('/connexion/',(req,res)=>{
 
 app.post('/connecter', (req, res) => {
     const formData = req.body; 
+    console.log(req.body);
     const identifiant = formData.identifiant;
     const password_ = formData.password;
     const nouveau = formData.nouveau ;
@@ -130,6 +134,7 @@ app.post('/connecter', (req, res) => {
             console.log(err)
            
         }
+        console.log(`Number of rows for identifiant ${identifiant}: ${row.num}`);
         const result = row.num
         if (nouveau && result === 1) {
             console.log("utilisateur existe déjà");
@@ -167,6 +172,8 @@ app.post('/connecter', (req, res) => {
                     msg:'Bienvenue dans Mouhatdi Hike'
                 }]
                 con = 1
+                identif = identifiant
+
                 res.json(erreur)
             });
         }

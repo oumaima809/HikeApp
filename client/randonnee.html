@@ -38,7 +38,6 @@
   
     
       <script>
-        // Create the "Connexion" link initially
 const link = document.createElement('a');
         link.href = "/connexion";
         link.textContent = "Connexion";
@@ -53,12 +52,10 @@ const link = document.createElement('a');
     
    
 
-    // Fetch data for the specific ID from the server
     fetch(`/api/randonnees/${id}`)
         .then(response => response.json())
         .then(data => {
             console.log(data)
-            // Update the DOM with the retrieved data
             document.getElementById('title').textContent = data.randonnee.nom;
             document.getElementById('adress').textContent = data.randonnee.depart;
             document.getElementById('description').textContent = data.randonnee.description_;
@@ -76,7 +73,6 @@ const link = document.createElement('a');
 
             document.getElementById('score').innerHTML = starsHTML;
 
-            // Update other elements as needed
             if(data.connected===1)
             {
                 const navbar = document.getElementById("navbar");
