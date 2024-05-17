@@ -14,8 +14,8 @@
 <body>
     <nav class="nav">
         <div class="nav-title">
-            <a href="/"><h1>HIKE MOUHTADi</h1></a>
-            <p>A HIKE MOUHTADI SITE</p>
+            <h1>MOUHTA RANDO</h1>
+            <p>Voyage au coeur de la nature</p>
         </div>
         <ul>
             <li><a href="/">Randonner</a></li>
@@ -28,7 +28,7 @@
         <h2>All Hikes</h2>
     </div>
     <footer>
-        Copyright &copy; Blog Mouhtadi 2024
+        Copyright &copy; Mouhta Rando 2024
     </footer>
    
     <script >
@@ -52,9 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             // Get reference to data list element
             const dataList = document.getElementById('data-list');
+            console.log(data)
 
             // Loop through data and create list items
-            data.forEach(item => {
+            data.randonnees.forEach(item => {
                 const id = item.id;
                 console.log('heeere')
                  console.log(id)
@@ -73,6 +74,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 dataList.appendChild(a);
                 
             });
+            if(data.connected===1)
+            {
+                const navbar = document.getElementById("navbar");
+                navbar.innerHTML = ''; 
+                const newLink = document.createElement('a');
+                newLink.textContent = data.identifiant;
+                navbar.appendChild(newLink);
+                    
+            }
         })
         .catch(error => {
             console.error('Error fetching data:', error);

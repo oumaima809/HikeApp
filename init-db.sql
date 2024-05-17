@@ -19,8 +19,8 @@ CREATE TABLE utilisateur (
 
 );
 
-INSERT INTO randonnee (nom,depart,description_,score,photo) VALUES ('Randonnee1', 'TGM','a7la re7la',3,'/images/hike_1.jpeg');
-INSERT INTO randonnee (nom,depart,description_,score,photo) VALUES ('Randonnee2', 'BEB 3LIWA','a7la re7la',3,'/images/hike_1.jpeg');
+INSERT INTO randonnee (nom,depart,description_,score,photo) VALUES ('Randonnee1', 'TGM','a7la re7la',5,'/images/hike_1.jpeg');
+INSERT INTO randonnee (nom,depart,description_,score,photo) VALUES ('Randonnee2', 'BEB 3LIWA','a7la re7la',2,'/images/hike_1.jpeg');
 INSERT INTO randonnee (nom,depart,description_,score,photo) VALUES ('Randonnee3', 'BEB 3LIWA','a7la re7la',3,'/images/hike_1.jpeg');
 
 INSERT INTO utilisateur (identifiant,password_,nouveau) VALUES ('00123', 'hello',true);

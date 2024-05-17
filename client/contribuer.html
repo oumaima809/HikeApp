@@ -12,8 +12,8 @@
 <body>
     <nav class="nav">
         <div class="nav-title">
-            <h1>HIKE MOUHTADi</h1>
-            <p>A HIKE MOUHTADI SITE</p>
+            <h1>MOUHTA RANDO</h1>
+            <p>Voyage au coeur de la nature</p>
         </div>
         <ul>
             <li><a href="/">Randonner</a></li>
@@ -23,20 +23,7 @@
         </ul>
     </nav>
    
-<!--     
-    <div class="create-hike content">
-        <form id="hikeForm" action="/index.html" method="POST">
-            <label for="nom">Nom de la randonnée:</label>
-            <input type="text" id="title" name="nom" required>
-            <label for="depart">Adresse du point de départ:</label>
-            <input type="text" id="snippet" name="depart" required> 
-            <label for="score">Score de popularité:</label>
-            <input type="text" id="score" name="score" required> Corrected ID to "snippet" 
-            <label for="description">Description de la randonnée:</label>
-            <textarea id="body" name="description" required></textarea>
-            <button type="submit">Submit</button>
-        </form>
-    </div> -->
+
        
      <div class="create-hike content">
         <form id="hikeForm" action="http://localhost:3000/contribuer" enctype="multipart/form-data" method="POST">
@@ -53,93 +40,9 @@
             <button type="submit">Submit</button>
         </form>
     </div>
-  <!--  
-    <script>
-        // Function to handle form submission
-        function handleSubmit() {
-            // Access form data
-            const nom = document.getElementById('title').value;
-            const depart = document.getElementById('snippet').value; // Corrected ID to "snippet"
-            const description = document.getElementById('body').value;
-            const score = document.getElementById('score').value;
 
-            const data = { nom, depart, description ,score}; // Construct data object
-            // console.log(data)
-            fetch('http://localhost:3000/contribuer', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(res => res.json())
-            // .then(data => console.log(data))
-            .catch(error => console.log(error));
-        }
+    <script>
     
-        // Add event listener to form submission
-        const form = document.getElementById('hikeForm');
-        form.addEventListener('submit', handleSubmit);
-    </script>
-     -->
-     <!-- <form>
-        <input type="text" name="file-name" id="name">
-        <input type="file" name="file" id="files" multiple>
-        <button type="submit">Submit</button>
-    </form> -->
-    <script>
-    //      const form = document.querySelector('form');
-    // form.addEventListener('submit', (e) => {
-        
-    //     e.preventDefault()
-    //     // Prevents HTML handling submission
-    //     // Access form data
-    //     const nom = document.getElementById('title').value;
-    //     const depart = document.getElementById('snippet').value; // Corrected ID to "snippet"
-    //     const description = document.getElementById('body').value;
-    //     const score = document.getElementById('score').value;
-    //     const files = document.getElementById("files");
-    //     console.log(nom)
-    //     // const formData = new FormData();
-    //     // formData.append('title',nom);
-    //     // formData.append('snippet',depart);
-    //     // formData.append('body',description);
-    //     // formData.append('score',score);
-
-    //     // // Appends value of text input
-    //     // for(let i =0; i < files.files.length; i++) {
-    //     //     formData.append("files", files.files[i]);
-    //     // }
-    //     // console.log(formData)
-    //     const data = 
-    //     {
-    //         nom  : nom,
-    //         depart : depart,
-    //         description : description,
-    //         score : score,
-    //         files : files
-
-    //     }
-    //     console.log(data)
-    //     // Appends value(s) of file input
-    //     // Post data to Node and Express server:
-    //     fetch('http://localhost:3000/contribuer', {
-    //         method: 'POST',
-    //         headers: {
-    //     'Content-Type': 'application/json'
-    // },
-    //         body: JSON.stringify(data) // Convert object to JSON string
-
-    //     })
-    //     .then( res =>
-    //     {if (res.redirected) {
-    //         // Redirect to the index page
-    //         window.location.href = res.url;
-    //     } else {
-    //         // Handle other responses here
-    //         return res.json();
-    //     }})
-    //     .then(data => console.log(data));
-    // })
     const form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
     e.preventDefault(); // Prevents HTML handling submission
@@ -185,7 +88,7 @@ form.addEventListener('submit', (e) => {
     
     
     <footer>
-        Copyright &copy; Blog Mouhtadi 2024
+        Copyright &copy; Mouhta Rando 2024
     </footer>
   
 </body>

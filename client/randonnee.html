@@ -13,13 +13,13 @@
 <body>
     <nav class="nav">
         <div class="nav-title">
-            <h1>HIKE MOUHTADi</h1>
-            <p>A HIKE MOUHTADI SITE</p>
+            <h1>MOUHTA RANDO</h1>
+            <p>Voyage au coeur de la nature</p>
         </div>
         <ul>
             <li><a href="/">Randonner</a></li>
             <li><a href="/contribuer/">Contribuer</a></li>
-            <li><a href="/connexion/">connexion</a></li>
+             <li id="navbar"></li>
         </ul>
     </nav>
    
@@ -38,6 +38,11 @@
   
     
       <script>
+        // Create the "Connexion" link initially
+const link = document.createElement('a');
+        link.href = "/connexion";
+        link.textContent = "Connexion";
+        document.getElementById("navbar").appendChild(link);
         
       document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -54,17 +59,17 @@
         .then(data => {
             console.log(data)
             // Update the DOM with the retrieved data
-            document.getElementById('title').textContent = data.nom;
-            document.getElementById('adress').textContent = data.depart;
-            document.getElementById('description').textContent = data.description_;
+            document.getElementById('title').textContent = data.randonnee.nom;
+            document.getElementById('adress').textContent = data.randonnee.depart;
+            document.getElementById('description').textContent = data.randonnee.description_;
 
-            var score = data.score;
+            var score = data.randonnee.score;
             var starsHTML = '';
 
             for (var i = 0; i < score; i++) {
                 starsHTML += '<i class="fa-solid fa-star"></i>';
             }
-            var photo = data.photo;
+            var photo = data.randonnee.photo;
             console.log(photo);
             var imgHtml = `<img src="${photo}" alt="this is img" class="hike-img" >`
             document.getElementById('img').innerHTML =  imgHtml;
@@ -72,6 +77,15 @@
             document.getElementById('score').innerHTML = starsHTML;
 
             // Update other elements as needed
+            if(data.connected===1)
+            {
+                const navbar = document.getElementById("navbar");
+                navbar.innerHTML = ''; 
+                const newLink = document.createElement('a');
+                newLink.textContent = data.identifiant;
+                navbar.appendChild(newLink);
+                    
+            }
         })
         
 });
@@ -80,7 +94,7 @@
 
      
     <footer>
-        Copyright &copy; Blog Mouhtadi 2024
+        Copyright &copy; Mouhta Rando 2024
     </footer>
 
 
